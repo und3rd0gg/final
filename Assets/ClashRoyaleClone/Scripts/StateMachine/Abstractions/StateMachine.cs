@@ -18,8 +18,8 @@ public abstract class StateMachine : MonoBehaviour
             return;
 
         _currentBehaviour?.Tick();
-        //var nextBehavior = _currentBehaviour.GetNextBehavior();
-        //SetBehaviour<>();
+        var nextBehavior = _currentBehaviour.GetNextBehavior();
+            //SetBehaviour<>();
     }
 
     protected void SetBehaviourByDefault<T>() where T : StateMachineBehaviour
