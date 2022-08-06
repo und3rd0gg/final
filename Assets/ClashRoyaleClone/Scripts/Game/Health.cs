@@ -1,7 +1,12 @@
+using UnityEngine;
+
 public class Health : CharacterCharacteristic
 {
-    public void ApplyDamage(int damage)
+    private void Update()
     {
-        Amount -= damage;
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            Amount -= 1;
+        }
     }
 }
