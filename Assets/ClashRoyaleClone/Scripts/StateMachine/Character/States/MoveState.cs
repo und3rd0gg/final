@@ -1,22 +1,22 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
+[RequireComponent(typeof(Mover))]
 public class MoveState : StateMachineBehaviour
 {
-    private NavMeshAgent _navMeshAgent;
     private Animator _animator;
-    private Rigidbody _rigidbody;
+    private Mover _mover;
     private Vector3 _target;
 
-    public MoveState(NavMeshAgent navMeshAgent, Animator animator, Vector3 target) : base(new List<Transition>
+    public MoveState(Mover mover, Animator animator, BoxCollider visionZone, Vector3 target) : base(
+        new List<Transition>
+        {
+            new EnemyInVisionZone(visionZone),
+        })
     {
-        new EnemyInVisionZone(),
-    })
-    {
+        _mover = mover;
         //Transitions.Add(new EnemyInVisionZone());
         _animator = animator;
-        _navMeshAgent = navMeshAgent;
         SetTarget(target);
     }
 
@@ -27,19 +27,11 @@ public class MoveState : StateMachineBehaviour
 
     public override void Enter()
     {
-        _navMeshAgent.isStopped = false;
-        _navMeshAgent.SetDestination(_target);
-    }
-
-    public override void Tick()
-    {
-        base.Tick();
-        var currentVelocity = _navMeshAgent.velocity.magnitude;
-        _animator.SetFloat(AnimatorCharacterController.Params.Speed, currentVelocity);
+        _mover.SetDestination(_target);
     }
 
     public override void Exit()
     {
-        _navMeshAgent.isStopped = true;
+        _mover.StopDestinationFollowing();
     }
 }

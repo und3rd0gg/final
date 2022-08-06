@@ -1,7 +1,16 @@
-﻿public class EnemyInVisionZone : Transition
+﻿using UnityEngine;
+
+public class EnemyInVisionZone : Transition
 {
+    private BoxCollider _visionZone;
+    
+    public EnemyInVisionZone(BoxCollider visionZone)
+    {
+        _visionZone = visionZone;
+    }
+
     public override void Tick()
     {
-        //throw new System.NotImplementedException();
+        //if()
     }
 }
