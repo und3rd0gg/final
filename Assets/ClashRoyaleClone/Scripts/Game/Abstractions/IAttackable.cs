@@ -1,7 +1,6 @@
-﻿namespace ClashRoyaleClone.Scripts.Game.Abstractions
+﻿using UnityEngine;
+
+public interface IAttackable
 {
-    public interface IAttackable
-    {
-    
-    }
+    Vector3 Position { get; }
 }

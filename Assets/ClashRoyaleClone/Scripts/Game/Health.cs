@@ -1,16 +1,12 @@
-using ClashRoyaleClone.Scripts.Game.Abstractions;
 using UnityEngine;
 
-namespace ClashRoyaleClone.Scripts.Game
+public class Health : CharacterCharacteristic
 {
-    public class Health : CharacterCharacteristic, IAttackable
+    private void Update()
     {
-        private void Update()
+        if (Input.GetKeyDown(KeyCode.A))
         {
-            if (Input.GetKeyDown(KeyCode.A))
-            {
-                Amount -= 1;
-            }
+            Amount -= 1;
         }
     }
 }

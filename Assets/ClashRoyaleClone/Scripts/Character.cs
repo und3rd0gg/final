@@ -1,12 +1,11 @@
 ﻿using UnityEngine;
 
-namespace ClashRoyaleClone.Scripts
+public class Character : CharacterStateMachine, IAttackable
 {
-    public class Character : MonoBehaviour
+    public Vector3 Position => transform.position;
+    
+    public void Initialize(Vector3 position)
     {
-        public void Initialize(Vector3 position)
-        {
-            transform.position = position;
-        }
+        transform.position = position;
     }
 }

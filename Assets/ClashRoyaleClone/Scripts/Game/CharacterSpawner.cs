@@ -1,36 +1,31 @@
 using UnityEngine;
 
-namespace ClashRoyaleClone.Scripts.Game
+[RequireComponent(typeof(Camera))]
+public class CharacterSpawner : MonoBehaviour
 {
-    [RequireComponent(typeof(Camera))]
-    public class CharacterSpawner : MonoBehaviour
+    [SerializeField] private Character _character;
+    [SerializeField] private Camera _camera;
+
+    private void Awake()
     {
-        [SerializeField] private Character _character;
-        [SerializeField] private Camera _camera;
-        [SerializeField] private Enemy _enemy;
+        _camera = GetComponent<Camera>();
+    }
 
+    private void Update()
+    {
+        SpawnCharacter();
+    }
 
-        private void Awake()
+    private void SpawnCharacter()
+    {
+        if (Input.GetMouseButtonDown(0))
         {
-            _camera = GetComponent<Camera>();
-        }
+            var target = _camera.ScreenPointToRay(Input.mousePosition);
 
-        private void Update()
-        {
-            SpawnCharacter();
-        }
-
-        private void SpawnCharacter()
-        {
-            if (Input.GetMouseButtonDown(0))
+            if (Physics.Raycast(target, out var hit))
             {
-                var target = _camera.ScreenPointToRay(Input.mousePosition);
-
-                if (Physics.Raycast(target, out var hit))
-                {
-                    var character = Instantiate(_character);
-                    character.Initialize(hit.point);
-                }
+                var character = Instantiate(_character);
+                character.Initialize(hit.point);
             }
         }
     }
