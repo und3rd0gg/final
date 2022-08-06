@@ -5,9 +5,8 @@ public class Character : CharacterStateMachine, IAttackable
 {
     private Health _health;
 
-    protected override void Awake()
+    protected void Awake()
     {
-        base.Awake();
         _health = GetComponent<Health>();
     }
 
@@ -18,8 +17,9 @@ public class Character : CharacterStateMachine, IAttackable
         _health.ApplyDamage(damage);
     }
 
-    public void Initialize(Vector3 position)
+    public void Initialize(Vector3 position, IAttackable mainTarget)
     {
         transform.position = position;
+        MainTarget = mainTarget;
     }
 }

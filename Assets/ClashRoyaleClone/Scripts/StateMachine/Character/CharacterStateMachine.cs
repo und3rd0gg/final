@@ -7,10 +7,11 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class CharacterStateMachine : StateMachine
 {
-    private IAttackable _currentTarget;
+    protected IAttackable MainTarget;
 
-    protected virtual void Start()
+    protected override void Start()
     {
+        base.Start();
         SetBehaviourByDefault<MoveState>();
     }
 
@@ -21,9 +22,9 @@ public class CharacterStateMachine : StateMachine
             {
                 typeof(MoveState),
                 new MoveState(GetComponent<NavMeshAgent>(), GetComponent<Animator>(),
-                    GameObject.FindGameObjectWithTag("EnemyCastle").transform.position)
+                    MainTarget.Position)
             },
-            {typeof(AttackState), new AttackState(_currentTarget, GetComponent<Animator>())}
+            {typeof(AttackState), new AttackState(MainTarget, GetComponent<Animator>())}
         };
     }
 }

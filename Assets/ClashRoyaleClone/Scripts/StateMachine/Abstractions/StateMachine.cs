@@ -7,7 +7,7 @@ public abstract class StateMachine : MonoBehaviour
     protected Dictionary<Type, StateMachineBehaviour> CharacterBehaviorsMap;
     private StateMachineBehaviour _currentBehaviour;
 
-    protected virtual void Awake()
+    protected virtual void Start()
     {
         InitializeBehaviorMap();
     }
@@ -18,8 +18,6 @@ public abstract class StateMachine : MonoBehaviour
             return;
 
         _currentBehaviour?.Tick();
-        var nextBehavior = _currentBehaviour.GetNextBehavior();
-            //SetBehaviour<>();
     }
 
     protected void SetBehaviourByDefault<T>() where T : StateMachineBehaviour

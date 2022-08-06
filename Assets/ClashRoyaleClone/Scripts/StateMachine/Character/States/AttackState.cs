@@ -5,7 +5,7 @@ public class AttackState : StateMachineBehaviour
     private Animator _animator;
     private IAttackable _target;
 
-    public AttackState(IAttackable target, Animator animator)
+    public AttackState(IAttackable target, Animator animator) : base()
     {
         _animator = animator;
         _target = target;

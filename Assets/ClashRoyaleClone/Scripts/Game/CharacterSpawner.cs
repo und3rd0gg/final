@@ -5,6 +5,7 @@ public class CharacterSpawner : MonoBehaviour
 {
     [SerializeField] private Character _character;
     [SerializeField] private Camera _camera;
+    [SerializeField] private Tower _enemyTower;
 
     private void Awake()
     {
@@ -25,7 +26,7 @@ public class CharacterSpawner : MonoBehaviour
             if (Physics.Raycast(target, out var hit))
             {
                 var character = Instantiate(_character);
-                character.Initialize(hit.point);
+                character.Initialize(hit.point, _enemyTower);
             }
         }
     }

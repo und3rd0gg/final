@@ -9,10 +9,12 @@ public class MoveState : StateMachineBehaviour
     private Rigidbody _rigidbody;
     private Vector3 _target;
 
-    public MoveState(NavMeshAgent navMeshAgent, Animator animator, Vector3 target)
+    public MoveState(NavMeshAgent navMeshAgent, Animator animator, Vector3 target) : base(new List<Transition>
     {
-        Transitions = new List<Transition>();
-        //Transitions.Add();
+        new EnemyInVisionZone(),
+    })
+    {
+        //Transitions.Add(new EnemyInVisionZone());
         _animator = animator;
         _navMeshAgent = navMeshAgent;
         SetTarget(target);

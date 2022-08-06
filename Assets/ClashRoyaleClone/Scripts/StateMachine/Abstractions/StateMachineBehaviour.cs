@@ -2,11 +2,11 @@
 
 public abstract class StateMachineBehaviour
 {
-    protected List<Transition> Transitions;
+    private List<Transition> Transitions;
 
-    public StateMachineBehaviour()
+    protected StateMachineBehaviour(List<Transition> transitions = null)
     {
-        Transitions = new List<Transition>();
+        Transitions = transitions;
     }
 
     public StateMachineBehaviour GetNextBehavior()
