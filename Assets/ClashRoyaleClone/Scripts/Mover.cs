@@ -13,11 +13,22 @@ public class Mover : MonoBehaviour
     private Animator _animator;
 
     public event Action DestinationReached;
+    //public event Action DestinationFollowingAborted;
 
     private void Awake()
     {
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _animator = GetComponent<Animator>();
+    }
+
+    private void OnEnable()
+    {
+        DestinationReached += OnDestinationReached;
+    }
+
+    private void OnDisable()
+    {
+        DestinationReached -= OnDestinationReached;
     }
 
     private void Update()
@@ -28,11 +39,10 @@ public class Mover : MonoBehaviour
 
     private IEnumerator WaitUntilTargetReachedRoutine()
     {
-        if (_navMeshAgent.hasPath && _navMeshAgent.velocity.sqrMagnitude > 0)
-        {
-            yield return new WaitUntil(() => _navMeshAgent.remainingDistance <= _navMeshAgent.stoppingDistance);
-            DestinationReached?.Invoke();
-        }
+        const float executionDelay = 1f;
+        yield return new WaitForSeconds(executionDelay);
+        yield return new WaitUntil(() => _navMeshAgent.remainingDistance <= _navMeshAgent.stoppingDistance);
+        DestinationReached?.Invoke();
     }
 
     public void SetDestination(Vector3 destination)
@@ -52,5 +62,10 @@ public class Mover : MonoBehaviour
 
         _navMeshAgent.isStopped = true;
         enabled = false;
+    }
+
+    private void OnDestinationReached()
+    {
+        StopDestinationFollowing();
     }
 }
