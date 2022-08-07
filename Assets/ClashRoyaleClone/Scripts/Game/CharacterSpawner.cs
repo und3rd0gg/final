@@ -2,26 +2,17 @@ using UnityEngine;
 
 public class CharacterSpawner : MonoBehaviour
 {
-    [SerializeField] private Character _character;
     [SerializeField] private Camera _mainCamera;
     [SerializeField] private Tower _enemyTower;
 
-    private void Update()
+    public void SpawnCharacter(Character character)
     {
-        SpawnCharacter();
-    }
+        var target = _mainCamera.ScreenPointToRay(Input.mousePosition);
 
-    private void SpawnCharacter()
-    {
-        if (Input.GetMouseButtonDown(0))
+        if (Physics.Raycast(target, out var hit))
         {
-            var target = _mainCamera.ScreenPointToRay(Input.mousePosition);
-
-            if (Physics.Raycast(target, out var hit))
-            {
-                var character = Instantiate(_character);
-                character.Initialize(hit.point, _enemyTower);
-            }
+            var currentCharacter = Instantiate(character);
+            currentCharacter.Initialize(hit.point, _enemyTower);
         }
     }
 }
