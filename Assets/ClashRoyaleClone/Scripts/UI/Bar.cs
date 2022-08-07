@@ -7,13 +7,14 @@ public class Bar : MonoBehaviour
 {
     private Image _filler;
     private Coroutine _changeBarAmountRoutine;
-
-    [SerializeField] private CharacterCharacteristic _targetValue;
+    private CharacterCharacteristic _targetValue;
+    
     [Range(0.01f, 1)] [SerializeField] private float _smoothness;
 
     private void Awake()
     {
         _filler = GetComponent<Image>();
+        _targetValue = GetComponentInParent<CharacterCharacteristic>();
     }
 
     private void OnEnable()

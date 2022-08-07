@@ -18,11 +18,6 @@ public abstract class StateMachine : MonoBehaviour
             return;
 
         _currentBehaviour?.Tick();
-<<<<<<< HEAD
-=======
-        //var nextBehavior = _currentBehaviour.GetNextBehavior();
-        //SetBehaviour<>();
->>>>>>> parent of 86143c6 (w)
     }
 
     protected void SetBehaviourByDefault<T>() where T : StateMachineBehaviour

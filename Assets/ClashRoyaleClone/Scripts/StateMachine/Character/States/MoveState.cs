@@ -4,19 +4,16 @@ using UnityEngine;
 [RequireComponent(typeof(Mover))]
 public class MoveState : StateMachineBehaviour
 {
-    private Animator _animator;
     private Mover _mover;
     private Vector3 _target;
 
-    public MoveState(Mover mover, Animator animator, BoxCollider visionZone, Vector3 target) : base(
+    public MoveState(Mover mover, Vector3 target) : base(
         new List<Transition>
         {
-            new EnemyInVisionZone(visionZone),
+            //new EnemyInVisionZone(visionZone),
         })
     {
         _mover = mover;
-        //Transitions.Add(new EnemyInVisionZone());
-        _animator = animator;
         SetTarget(target);
     }
 
