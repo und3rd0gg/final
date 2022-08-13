@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 684515367966979723, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
+      propertyPath: <CreationPrice>k__BackingField
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 1438546959266459337, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -54,10 +58,6 @@ PrefabInstance:
     - target: {fileID: 1782702501690864755, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
       propertyPath: m_Name
       value: Character Variant
-      objectReference: {fileID: 0}
-    - target: {fileID: 3041586894362481077, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
-      propertyPath: _amount
-      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
