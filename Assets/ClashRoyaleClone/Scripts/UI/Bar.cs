@@ -8,8 +8,8 @@ public class Bar : MonoBehaviour
     private Image _filler;
     private Coroutine _changeBarAmountRoutine;
     private CharacterCharacteristic _targetValue;
-    
-    [Range(0.01f, 1)] [SerializeField] private float _smoothness;
+
+    [Range(0.01f, 1)] [SerializeField] private float _smoothness = 1;
 
     private void Awake()
     {

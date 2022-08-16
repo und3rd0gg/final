@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.AI;
 
 public class Character : CharacterStateMachine, IAttackable
 {
@@ -23,5 +24,7 @@ public class Character : CharacterStateMachine, IAttackable
     {
         transform.position = position;
         MainTarget = mainTarget;
+        this.enabled = true;
+        GetComponent<NavMeshAgent>().enabled = true;
     }
 }
