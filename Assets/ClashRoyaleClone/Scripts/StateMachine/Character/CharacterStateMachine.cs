@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using ClashRoyaleClone.Scripts.AiDetections.Abstractions;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -22,7 +23,7 @@ public class CharacterStateMachine : StateMachine
         {
             {
                 typeof(MoveState),
-                new MoveState(GetComponent<Mover>(), MainTarget.Position)
+                new MoveState(GetComponent<Mover>(), MainTarget.Position, GetComponentInChildren<IDetector>())
             },
             {typeof(AttackState), new AttackState(MainTarget, GetComponent<Animator>())}
         };

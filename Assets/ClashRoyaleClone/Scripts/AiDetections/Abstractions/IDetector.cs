@@ -3,10 +3,12 @@ using UnityEngine;
 
 namespace ClashRoyaleClone.Scripts.AiDetections.Abstractions
 {
+    public delegate void ObjectDetectionHandler(GameObject source, GameObject detectedObject);
+    
     public interface IDetector
     {
-        event Action<GameObject, GameObject> GameObjectDetected;
-        event Action<GameObject, GameObject> GameObjectDetectionReleased;
+        event ObjectDetectionHandler GameObjectDetected;
+        event ObjectDetectionHandler GameObjectDetectionReleased;
 
         void Detect(IDetectable detectableObject);
         void Detect(GameObject detectedObject);

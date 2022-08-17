@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using ClashRoyaleClone.Scripts.AiDetections.Abstractions;
 using UnityEngine;
-
 
 [RequireComponent(typeof(Rigidbody))]
 public class Detector : MonoBehaviour, IDetector
@@ -11,8 +9,8 @@ public class Detector : MonoBehaviour, IDetector
 
     public GameObject[] DetectedObjects => _detectedObjects.ToArray();
 
-    public event Action<GameObject, GameObject> GameObjectDetected;
-    public event Action<GameObject, GameObject> GameObjectDetectionReleased;
+    public event ObjectDetectionHandler GameObjectDetected;
+    public event ObjectDetectionHandler GameObjectDetectionReleased;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -32,7 +30,7 @@ public class Detector : MonoBehaviour, IDetector
 
     private bool IsDetectableObject(Collider coll, out IDetectable detectedObject)
     {
-        detectedObject = GetComponentInParent<IDetectable>();
+        detectedObject = coll.GetComponentInParent<IDetectable>();
         return detectedObject != null;
     }
 

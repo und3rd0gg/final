@@ -1,12 +1,19 @@
-﻿using UnityEngine;
+﻿using ClashRoyaleClone.Scripts.AiDetections.Abstractions;
+using UnityEngine;
 
 public class EnemyInVisionZone : Transition
 {
-    private BoxCollider _visionZone;
+    private IDetector _detector;
     
-    public EnemyInVisionZone(BoxCollider visionZone)
+    public EnemyInVisionZone(IDetector detectorComponent)
     {
-        _visionZone = visionZone;
+        _detector = detectorComponent;
+        _detector.GameObjectDetected += OnGameObjectDetected;
+    }
+
+    private void OnGameObjectDetected(GameObject detector, GameObject detectedObject)
+    {
+        
     }
 
     public override void Tick()

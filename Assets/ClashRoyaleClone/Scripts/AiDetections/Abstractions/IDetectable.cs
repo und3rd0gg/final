@@ -1,10 +1,11 @@
 ﻿using System;
+using ClashRoyaleClone.Scripts.AiDetections.Abstractions;
 using UnityEngine;
 
 public interface IDetectable
 {
-    event Action<GameObject, GameObject> GameObjectDetected;
-    event Action<GameObject, GameObject> GameObjectDetectionReleased;
+    event ObjectDetectionHandler GameObjectDetected;
+    event ObjectDetectionHandler GameObjectDetectionReleased;
 
     GameObject GameObject { get; }
 
