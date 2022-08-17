@@ -71,4 +71,9 @@ public class Detector : MonoBehaviour, IDetector
             GameObjectDetectionReleased?.Invoke(gameObject, detectedObject);
         }
     }
+
+    public float GetDistance(IDetectable detectedObject)
+    {
+        return Vector3.Distance(transform.position, detectedObject.GameObject.transform.position);
+    }
 }

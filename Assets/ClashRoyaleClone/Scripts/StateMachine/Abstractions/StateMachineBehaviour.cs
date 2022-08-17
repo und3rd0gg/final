@@ -22,7 +22,13 @@ public abstract class StateMachineBehaviour
         return null;
     }
 
-    public abstract void Enter();
+    public virtual void Enter()
+    {
+        foreach (var transition in Transitions)
+        {
+            transition.Activate();
+        }
+    }
 
     public virtual void Tick()
     {
@@ -32,5 +38,11 @@ public abstract class StateMachineBehaviour
         }
     }
 
-    public abstract void Exit();
+    public virtual void Exit()
+    {
+        foreach (var transition in Transitions)
+        {
+            transition.Deactivate();
+        }
+    }
 }

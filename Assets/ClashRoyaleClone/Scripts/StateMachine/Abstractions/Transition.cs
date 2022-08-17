@@ -7,12 +7,12 @@
 
     public abstract void Tick();
 
-    public void Activate()
+    public virtual void Activate()
     {
         _isActivated = true;
     }
 
-    public void Deactivate()
+    public virtual void Deactivate()
     {
         _isActivated = false;
     }

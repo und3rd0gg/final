@@ -36,12 +36,14 @@ public class MoveState : StateMachineBehaviour
 
     public override void Enter()
     {
+        base.Enter();
         _detector.GameObjectDetected += OnGameObjectDetected;
         _mover.SetDestination(_target);
     }
 
     public override void Exit()
     {
+        base.Exit();
         _detector.GameObjectDetected -= OnGameObjectDetected;
         _mover.StopDestinationFollowing();
     }

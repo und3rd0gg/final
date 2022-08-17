@@ -7,6 +7,8 @@ namespace ClashRoyaleClone.Scripts.AiDetections.Abstractions
     
     public interface IDetector
     {
+        public GameObject[] DetectedObjects { get; }
+        
         event ObjectDetectionHandler GameObjectDetected;
         event ObjectDetectionHandler GameObjectDetectionReleased;
 
@@ -14,5 +16,6 @@ namespace ClashRoyaleClone.Scripts.AiDetections.Abstractions
         void Detect(GameObject detectedObject);
         void ReleaseDetection(IDetectable detectableObject);
         void ReleaseDetection(GameObject detectedObject);
+        float GetDistance(IDetectable detectedObject);
     }
 }
