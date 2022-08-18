@@ -2,23 +2,22 @@
 
 public class EnemyInVisionZone : Transition
 {
+    public IAttackable Target;
+    
     private Transform _characterTransform;
-    private IAttackable _target;
-    private readonly float _stopDistance = 1.6f;
+    private readonly float _stopDistance = 2.2f;
 
     public EnemyInVisionZone(Transform characterTransform, ref IAttackable target)
     {
+        TargetBehaviour = typeof(AttackState);
         _characterTransform = characterTransform;
-        _target = target;
+        Target = target;
     }
 
     public override void Tick()
     {
-        Debug.Log(_target);
-        
-        if (Vector3.Distance(_characterTransform.position, _target.Position) < _stopDistance)
+        if (Vector3.Distance(_characterTransform.position, Target.Position) < _stopDistance)
         {
-            Debug.Log(Vector3.Distance(_characterTransform.position, _target.Position));
             IsReadyToTransit = true;
         }
     }

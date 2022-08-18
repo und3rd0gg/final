@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using ClashRoyaleClone.Scripts.AiDetections.Abstractions;
 using UnityEngine;
 
@@ -10,7 +11,7 @@ public class MoveState : StateMachineBehaviour
     private IDetector _detector;
     private IAttackable _target;
 
-    public MoveState(Mover mover, ref IAttackable target, IDetector detectorComponent) : base(
+    public MoveState(Mover mover, IAttackable target, IDetector detectorComponent) : base(
         new List<Transition>
         {
             new EnemyInVisionZone(mover.transform, ref target),
@@ -25,6 +26,7 @@ public class MoveState : StateMachineBehaviour
     {
         _target = target;
         _mover.SetDestination(_target.Position);
+        UpdateTargetInVisionZoneTransition(_target);
     }
 
     public override void Enter()
@@ -44,6 +46,15 @@ public class MoveState : StateMachineBehaviour
         if (detectedObject.TryGetComponent<IAttackable>(out var attackableObject))
         {
             SetTarget(attackableObject);
+        }
+    }
+
+    private void UpdateTargetInVisionZoneTransition(IAttackable target)
+    {
+        foreach (var currentTransition in Transitions
+                     .Where(transition => transition.GetType() == typeof(EnemyInVisionZone)).Cast<EnemyInVisionZone>())
+        {
+            currentTransition.Target = _target;
         }
     }
 }

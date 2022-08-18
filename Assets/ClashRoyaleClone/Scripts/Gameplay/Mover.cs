@@ -64,6 +64,13 @@ public class Mover : MonoBehaviour
         enabled = false;
     }
 
+    public void Disable()
+    {
+        StopDestinationFollowing();
+        _navMeshAgent.enabled = false;
+        this.enabled = false;
+    }
+
     private void OnDestinationReached()
     {
         StopDestinationFollowing();

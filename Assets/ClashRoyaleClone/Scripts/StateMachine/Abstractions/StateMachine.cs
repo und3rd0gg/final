@@ -32,7 +32,14 @@ public abstract class StateMachine : MonoBehaviour
     protected void SetBehaviour<T>() where T : StateMachineBehaviour
     {
         _currentBehaviour?.Exit();
-        _currentBehaviour = GetBehavior<T>();
+        _currentBehaviour = GetBehaviour<T>();
+        _currentBehaviour.Enter();
+    }
+
+    protected void SetBehaviour(Type behaviourType)
+    {
+        _currentBehaviour?.Exit();
+        _currentBehaviour = GetBehaviour(behaviourType);
         _currentBehaviour.Enter();
     }
 
@@ -43,10 +50,15 @@ public abstract class StateMachine : MonoBehaviour
         _currentBehaviour.Enter();
     }
 
-    protected StateMachineBehaviour GetBehavior<T>() where T : StateMachineBehaviour
+    protected StateMachineBehaviour GetBehaviour<T>() where T : StateMachineBehaviour
     {
         var type = typeof(T);
         return BehaviorMap[type];
+    }
+
+    protected StateMachineBehaviour GetBehaviour(Type behaviourType)
+    {
+        return BehaviorMap[behaviourType];
     }
 
     protected abstract void InitializeBehaviorMap();

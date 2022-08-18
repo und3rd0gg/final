@@ -1,27 +1,28 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 public abstract class StateMachineBehaviour
 {
-    public List<Transition> Transitions { get; private set; }
+    protected List<Transition> Transitions { get; private set; }
 
     protected StateMachineBehaviour(List<Transition> transitions = null)
     {
         Transitions = transitions;
     }
 
-    public StateMachineBehaviour GetNextBehavior()
+    public Type GetNextBehavior()
     {
         foreach (var transition in Transitions)
         {
             if (transition.IsReadyToTransit)
             {
-                return transition.targetBehaviour;
+                return transition.TargetBehaviour;
             }
         }
 
         return null;
     }
-
+    
     public abstract void Enter();
 
     public virtual void Tick()

@@ -1,9 +1,9 @@
-﻿public abstract class Transition
+﻿using System;
+
+public abstract class Transition
 {
-    private bool _isActivated;
-    
     public bool IsReadyToTransit { get; protected set; } = false;
-    public StateMachineBehaviour targetBehaviour;
+    public Type TargetBehaviour { get; protected set; }
 
     public abstract void Tick();
 }

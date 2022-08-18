@@ -26,7 +26,7 @@ public class CharacterStateMachine : StateMachine
         {
             {
                 typeof(MoveState),
-                new MoveState(GetComponent<Mover>(), ref CurrentTarget, GetComponentInChildren<IDetector>())
+                new MoveState(GetComponent<Mover>(), CurrentTarget, GetComponentInChildren<IDetector>())
             },
             {typeof(AttackState), new AttackState(MainTarget, GetComponent<Animator>())}
         };
