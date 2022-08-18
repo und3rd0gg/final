@@ -2,7 +2,7 @@
 
 public abstract class StateMachineBehaviour
 {
-    private List<Transition> Transitions;
+    public List<Transition> Transitions { get; private set; }
 
     protected StateMachineBehaviour(List<Transition> transitions = null)
     {
@@ -22,13 +22,7 @@ public abstract class StateMachineBehaviour
         return null;
     }
 
-    public virtual void Enter()
-    {
-        foreach (var transition in Transitions)
-        {
-            transition.Activate();
-        }
-    }
+    public abstract void Enter();
 
     public virtual void Tick()
     {
@@ -38,11 +32,5 @@ public abstract class StateMachineBehaviour
         }
     }
 
-    public virtual void Exit()
-    {
-        foreach (var transition in Transitions)
-        {
-            transition.Deactivate();
-        }
-    }
+    public abstract void Exit();
 }

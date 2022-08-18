@@ -10,6 +10,7 @@ using UnityEngine.AI;
 public class CharacterStateMachine : StateMachine
 {
     protected IAttackable MainTarget;
+    protected IAttackable CurrentTarget;
 
     protected override void Start()
     {
@@ -19,11 +20,13 @@ public class CharacterStateMachine : StateMachine
 
     protected override void InitializeBehaviorMap()
     {
-        CharacterBehaviorsMap = new Dictionary<Type, StateMachineBehaviour>
+        CurrentTarget = MainTarget;
+        
+        BehaviorMap = new Dictionary<Type, StateMachineBehaviour>
         {
             {
                 typeof(MoveState),
-                new MoveState(GetComponent<Mover>(), MainTarget.Position, GetComponentInChildren<IDetector>())
+                new MoveState(GetComponent<Mover>(), ref CurrentTarget, GetComponentInChildren<IDetector>())
             },
             {typeof(AttackState), new AttackState(MainTarget, GetComponent<Animator>())}
         };

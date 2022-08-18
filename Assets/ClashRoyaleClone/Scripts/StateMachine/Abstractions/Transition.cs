@@ -6,14 +6,4 @@
     public StateMachineBehaviour targetBehaviour;
 
     public abstract void Tick();
-
-    public virtual void Activate()
-    {
-        _isActivated = true;
-    }
-
-    public virtual void Deactivate()
-    {
-        _isActivated = false;
-    }
 }

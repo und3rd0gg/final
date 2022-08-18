@@ -1,42 +1,25 @@
-﻿using ClashRoyaleClone.Scripts.AiDetections.Abstractions;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class EnemyInVisionZone : Transition
 {
-    private IDetector _detector;
-    private readonly float _stopDistance = 1f;
+    private Transform _characterTransform;
+    private IAttackable _target;
+    private readonly float _stopDistance = 1.6f;
 
-    public EnemyInVisionZone(IDetector detectorComponent)
+    public EnemyInVisionZone(Transform characterTransform, ref IAttackable target)
     {
-        _detector = detectorComponent;
-    }
-
-    public override void Activate()
-    {
-        base.Activate();
-        _detector.GameObjectDetected += OnGameObjectDetected;
-    }
-
-    public override void Deactivate()
-    {
-        base.Deactivate();
-        _detector.GameObjectDetected -= OnGameObjectDetected;
+        _characterTransform = characterTransform;
+        _target = target;
     }
 
     public override void Tick()
     {
-    }
-
-    private void OnGameObjectDetected(GameObject detector, GameObject detectedObject)
-    {
-        if (detectedObject.TryGetComponent<IAttackable>(out var attackableObject))
-        {
-            
-        }
-    }
-
-    private async void WaitUntilEnemyApproached()
-    {
+        Debug.Log(_target);
         
+        if (Vector3.Distance(_characterTransform.position, _target.Position) < _stopDistance)
+        {
+            Debug.Log(Vector3.Distance(_characterTransform.position, _target.Position));
+            IsReadyToTransit = true;
+        }
     }
 }

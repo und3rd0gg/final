@@ -13,7 +13,7 @@ public class AttackState : StateMachineBehaviour
 
     public override void Enter()
     {
-        base.Enter();
+        throw new System.NotImplementedException();
     }
 
     public override void Tick()

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using ClashRoyaleClone.Scripts.AiDetections.Abstractions;
 using UnityEngine;
 
@@ -6,45 +7,43 @@ using UnityEngine;
 public class MoveState : StateMachineBehaviour
 {
     private Mover _mover;
-    private Vector3 _target;
     private IDetector _detector;
+    private IAttackable _target;
 
-    public MoveState(Mover mover, Vector3 target, IDetector detectorComponent) : base(
+    public MoveState(Mover mover, ref IAttackable target, IDetector detectorComponent) : base(
         new List<Transition>
         {
-            //new EnemyInVisionZone(visionZone),
+            new EnemyInVisionZone(mover.transform, ref target),
         })
     {
         _mover = mover;
         _detector = detectorComponent;
-        SetTarget(target);
+        _target = target;
+    }
+
+    private void SetTarget(IAttackable target)
+    {
+        _target = target;
+        _mover.SetDestination(_target.Position);
+    }
+
+    public override void Enter()
+    {
+        _detector.GameObjectDetected += OnGameObjectDetected;
+        SetTarget(_target);
+    }
+
+    public override void Exit()
+    {
+        _detector.GameObjectDetected -= OnGameObjectDetected;
+        _mover.StopDestinationFollowing();
     }
 
     private void OnGameObjectDetected(GameObject detector, GameObject detectedObject)
     {
         if (detectedObject.TryGetComponent<IAttackable>(out var attackableObject))
         {
-            SetTarget(attackableObject.Position);
-            _mover.SetDestination(_target);
+            SetTarget(attackableObject);
         }
-    }
-
-    public void SetTarget(Vector3 target)
-    {
-        _target = target;
-    }
-
-    public override void Enter()
-    {
-        base.Enter();
-        _detector.GameObjectDetected += OnGameObjectDetected;
-        _mover.SetDestination(_target);
-    }
-
-    public override void Exit()
-    {
-        base.Exit();
-        _detector.GameObjectDetected -= OnGameObjectDetected;
-        _mover.StopDestinationFollowing();
     }
 }
