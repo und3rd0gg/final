@@ -25,7 +25,6 @@ public class Character : CharacterStateMachine, IAttackable
         transform.position = position;
         Settings = new CharacterStateMachineSettings(mainTarget);
         this.enabled = true;
-        GetComponent<NavMeshAgent>().enabled = true;
         InitializeBehaviorMap();
     }
 }

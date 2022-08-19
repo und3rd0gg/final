@@ -11,5 +11,7 @@ public static class AnimatorCharacterController
     public static class Params
     {
         public static readonly int Speed = Animator.StringToHash("Speed");
+        public static readonly int PunchLeft = Animator.StringToHash("PunchLeft");
+        public static readonly int PunchRight = Animator.StringToHash("PunchLeft");
     }
 }

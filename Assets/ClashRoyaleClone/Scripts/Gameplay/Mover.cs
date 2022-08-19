@@ -24,6 +24,7 @@ public class Mover : MonoBehaviour
     private void OnEnable()
     {
         DestinationReached += OnDestinationReached;
+        _navMeshAgent.enabled = true;
     }
 
     private void OnDisable()

@@ -22,9 +22,9 @@ public class CharacterStateMachine : StateMachine
         {
             {
                 typeof(MoveState),
-                new MoveState(GetComponent<Mover>(), Settings, GetComponentInChildren<IDetector>())
+                new MoveState(Settings, GetComponent<Mover>(), GetComponentInChildren<IDetector>())
             },
-            {typeof(AttackState), new AttackState(Settings, GetComponent<Animator>())}
+            {typeof(AttackState), new AttackState(Settings, GetComponent<Attacker>())}
         };
     }
 

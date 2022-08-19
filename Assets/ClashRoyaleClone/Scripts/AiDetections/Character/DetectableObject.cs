@@ -1,5 +1,4 @@
-﻿using System;
-using ClashRoyaleClone.Scripts.AiDetections.Abstractions;
+﻿using ClashRoyaleClone.Scripts.AiDetections.Abstractions;
 using UnityEngine;
 
 public class DetectableObject : MonoBehaviour, IDetectable

@@ -9,7 +9,7 @@ public class MoveState : StateMachineBehaviour
     private IDetector _detector;
     private CharacterStateMachineSettings _settings;
 
-    public MoveState(Mover mover, CharacterStateMachineSettings settings, IDetector detectorComponent) : base(
+    public MoveState(CharacterStateMachineSettings settings, Mover mover, IDetector detectorComponent) : base(
         new List<Transition>
         {
             new EnemyInVisionZone(mover.transform, settings),
@@ -36,6 +36,7 @@ public class MoveState : StateMachineBehaviour
     {
         _detector.GameObjectDetected -= OnGameObjectDetected;
         _mover.StopDestinationFollowing();
+        _mover.enabled = false;
     }
 
     private void OnGameObjectDetected(GameObject detector, GameObject detectedObject)
