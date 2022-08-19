@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using ClashRoyaleClone.Scripts.AiDetections.Abstractions;
 using UnityEngine;
@@ -11,7 +10,7 @@ public class MoveState : StateMachineBehaviour
     private IDetector _detector;
     private IAttackable _target;
 
-    public MoveState(Mover mover, IAttackable target, IDetector detectorComponent) : base(
+    public MoveState(Mover mover, ref IAttackable target, IDetector detectorComponent) : base(
         new List<Transition>
         {
             new EnemyInVisionZone(mover.transform, ref target),

@@ -1,11 +1,15 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class AttackState : StateMachineBehaviour
 {
     private Animator _animator;
     private IAttackable _target;
 
-    public AttackState(IAttackable target, Animator animator) : base()
+    public AttackState(IAttackable target, Animator animator) : base(new List<Transition>()
+    {
+        //
+    })
     {
         _animator = animator;
         _target = target;
@@ -13,16 +17,16 @@ public class AttackState : StateMachineBehaviour
 
     public override void Enter()
     {
-        throw new System.NotImplementedException();
+        //throw new System.NotImplementedException();
     }
 
     public override void Tick()
     {
-        throw new System.NotImplementedException();
+        //throw new System.NotImplementedException();
     }
 
     public override void Exit()
     {
-        throw new System.NotImplementedException();
+        //throw new System.NotImplementedException();
     }
 }

@@ -9,6 +9,12 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class CharacterStateMachine : StateMachine
 {
+    // protected struct MyStruct
+    // {
+    //     public IAttackable MainTarget;
+    //     public IAttackable CurrentTarget;
+    // }
+    
     protected IAttackable MainTarget;
     protected IAttackable CurrentTarget;
 
@@ -26,9 +32,14 @@ public class CharacterStateMachine : StateMachine
         {
             {
                 typeof(MoveState),
-                new MoveState(GetComponent<Mover>(), CurrentTarget, GetComponentInChildren<IDetector>())
+                new MoveState(GetComponent<Mover>(), ref CurrentTarget, GetComponentInChildren<IDetector>())
             },
-            {typeof(AttackState), new AttackState(MainTarget, GetComponent<Animator>())}
+            {typeof(AttackState), new AttackState(CurrentTarget, GetComponent<Animator>())}
         };
+    }
+
+    private void LateUpdate()
+    {
+        Debug.Log(CurrentTarget);
     }
 }
