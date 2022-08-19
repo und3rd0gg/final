@@ -7,11 +7,6 @@ public abstract class StateMachine : MonoBehaviour
     protected Dictionary<Type, StateMachineBehaviour> BehaviorMap;
     private StateMachineBehaviour _currentBehaviour;
 
-    protected virtual void Start()
-    {
-        InitializeBehaviorMap();
-    }
-
     protected virtual void Update()
     {
         _currentBehaviour?.Tick();

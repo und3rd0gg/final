@@ -9,37 +9,39 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class CharacterStateMachine : StateMachine
 {
-    // protected struct MyStruct
-    // {
-    //     public IAttackable MainTarget;
-    //     public IAttackable CurrentTarget;
-    // }
-    
-    protected IAttackable MainTarget;
-    protected IAttackable CurrentTarget;
+    protected CharacterStateMachineSettings Settings;
 
-    protected override void Start()
+    protected void Start()
     {
-        base.Start();
         SetBehaviourByDefault<MoveState>();
     }
 
     protected override void InitializeBehaviorMap()
     {
-        CurrentTarget = MainTarget;
-        
         BehaviorMap = new Dictionary<Type, StateMachineBehaviour>
         {
             {
                 typeof(MoveState),
-                new MoveState(GetComponent<Mover>(), ref CurrentTarget, GetComponentInChildren<IDetector>())
+                new MoveState(GetComponent<Mover>(), Settings, GetComponentInChildren<IDetector>())
             },
-            {typeof(AttackState), new AttackState(CurrentTarget, GetComponent<Animator>())}
+            {typeof(AttackState), new AttackState(Settings, GetComponent<Animator>())}
         };
     }
 
     private void LateUpdate()
     {
-        Debug.Log(CurrentTarget);
+        //Debug.Log(gameObject.name + " текущая цель: " + Settings.CurrentTarget.ToString());
+    }
+}
+
+public class CharacterStateMachineSettings
+{
+    public IAttackable MainTarget;
+    public IAttackable CurrentTarget;
+
+    public CharacterStateMachineSettings(IAttackable mainTarget)
+    {
+        MainTarget = mainTarget;
+        CurrentTarget = MainTarget;
     }
 }

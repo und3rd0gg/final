@@ -23,8 +23,9 @@ public class Character : CharacterStateMachine, IAttackable
     public void Initialize(Vector3 position, IAttackable mainTarget)
     {
         transform.position = position;
-        MainTarget = mainTarget;
+        Settings = new CharacterStateMachineSettings(mainTarget);
         this.enabled = true;
         GetComponent<NavMeshAgent>().enabled = true;
+        InitializeBehaviorMap();
     }
 }

@@ -4,15 +4,15 @@ using UnityEngine;
 public class AttackState : StateMachineBehaviour
 {
     private Animator _animator;
-    private IAttackable _target;
+    private CharacterStateMachineSettings _settings;
 
-    public AttackState(IAttackable target, Animator animator) : base(new List<Transition>()
+    public AttackState(CharacterStateMachineSettings settings, Animator animator) : base(new List<Transition>()
     {
         //
     })
     {
         _animator = animator;
-        _target = target;
+        _settings = settings;
     }
 
     public override void Enter()
@@ -22,7 +22,7 @@ public class AttackState : StateMachineBehaviour
 
     public override void Tick()
     {
-        //throw new System.NotImplementedException();
+        Debug.Log(" текущая цель: " + _settings.CurrentTarget.ToString());
     }
 
     public override void Exit()

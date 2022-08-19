@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using ClashRoyaleClone.Scripts.AiDetections.Abstractions;
 using UnityEngine;
 
@@ -8,30 +7,29 @@ public class MoveState : StateMachineBehaviour
 {
     private Mover _mover;
     private IDetector _detector;
-    private IAttackable _target;
+    private CharacterStateMachineSettings _settings;
 
-    public MoveState(Mover mover, ref IAttackable target, IDetector detectorComponent) : base(
+    public MoveState(Mover mover, CharacterStateMachineSettings settings, IDetector detectorComponent) : base(
         new List<Transition>
         {
-            new EnemyInVisionZone(mover.transform, ref target),
+            new EnemyInVisionZone(mover.transform, settings),
         })
     {
         _mover = mover;
         _detector = detectorComponent;
-        _target = target;
+        _settings = settings;
     }
 
     private void SetTarget(IAttackable target)
     {
-        _target = target;
-        _mover.SetDestination(_target.Position);
-        UpdateTargetInVisionZoneTransition(_target);
+        _settings.CurrentTarget = target;
+        _mover.SetDestination(target.Position);
     }
 
     public override void Enter()
     {
         _detector.GameObjectDetected += OnGameObjectDetected;
-        SetTarget(_target);
+        SetTarget(_settings.CurrentTarget);
     }
 
     public override void Exit()
@@ -45,15 +43,6 @@ public class MoveState : StateMachineBehaviour
         if (detectedObject.TryGetComponent<IAttackable>(out var attackableObject))
         {
             SetTarget(attackableObject);
-        }
-    }
-
-    private void UpdateTargetInVisionZoneTransition(IAttackable target)
-    {
-        foreach (var currentTransition in Transitions
-                     .Where(transition => transition.GetType() == typeof(EnemyInVisionZone)).Cast<EnemyInVisionZone>())
-        {
-            currentTransition.Target = _target;
         }
     }
 }
