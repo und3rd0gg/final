@@ -62,6 +62,7 @@ public class Mover : MonoBehaviour
         }
 
         _navMeshAgent.isStopped = true;
+        _animator.SetFloat(AnimatorCharacterController.Params.Speed, 0);
         enabled = false;
     }
 
