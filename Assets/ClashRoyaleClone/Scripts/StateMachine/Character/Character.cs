@@ -10,6 +10,7 @@ public class Character : CharacterStateMachine, IAttackable
     [field: SerializeField] public Sprite Icon { get; private set; }
     
     public Vector3 Position => transform.position;
+    public bool IsAlive => gameObject.activeInHierarchy;
 
     protected void Awake()
     {

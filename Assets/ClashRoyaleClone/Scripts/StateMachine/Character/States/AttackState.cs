@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class AttackState : StateMachineBehaviour
 {
@@ -6,9 +7,9 @@ public class AttackState : StateMachineBehaviour
     private CharacterStateMachineSettings _settings;
 
     public AttackState(CharacterStateMachineSettings settings, Attacker attacker) : base(
-        new List<Transition>()
+        new List<Transition>
         {
-            new TargetLost(settings),
+            new TargetLost(settings)
         })
     {
         _attacker = attacker;
@@ -17,17 +18,13 @@ public class AttackState : StateMachineBehaviour
 
     public override void Enter()
     {
-        _attacker.SetTarget(_settings.CurrentTarget);
         _attacker.enabled = true;
-    }
-
-    public override void Tick()
-    {
-        
+        _attacker.SetTarget(_settings.CurrentTarget);
     }
 
     public override void Exit()
     {
+        base.Exit();
         _attacker.enabled = false;
     }
 }

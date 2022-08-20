@@ -27,11 +27,6 @@ public class CharacterStateMachine : StateMachine
             {typeof(AttackState), new AttackState(Settings, GetComponent<Attacker>())}
         };
     }
-
-    private void LateUpdate()
-    {
-        //Debug.Log(gameObject.name + " текущая цель: " + Settings.CurrentTarget.ToString());
-    }
 }
 
 public class CharacterStateMachineSettings

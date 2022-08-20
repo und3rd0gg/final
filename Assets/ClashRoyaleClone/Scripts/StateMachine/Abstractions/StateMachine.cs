@@ -10,7 +10,6 @@ public abstract class StateMachine : MonoBehaviour
     protected virtual void Update()
     {
         _currentBehaviour?.Tick();
-
         var nextBehaviour = _currentBehaviour.GetNextBehavior();
 
         if (nextBehaviour != null)

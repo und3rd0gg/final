@@ -28,12 +28,14 @@ public class MoveState : StateMachineBehaviour
 
     public override void Enter()
     {
+        _mover.enabled = true;
         _detector.GameObjectDetected += OnGameObjectDetected;
         SetTarget(_settings.CurrentTarget);
     }
 
     public override void Exit()
     {
+        base.Exit();
         _detector.GameObjectDetected -= OnGameObjectDetected;
         _mover.StopDestinationFollowing();
         _mover.enabled = false;

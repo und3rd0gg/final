@@ -14,10 +14,10 @@ public abstract class StateMachineBehaviour
     {
         foreach (var transition in Transitions)
         {
-            if (transition.IsReadyToTransit)
-            {
-                return transition.TargetBehaviour;
-            }
+           if (transition.IsReadyToTransit)
+           {
+               return transition.TargetBehaviour;
+           }
         }
 
         return null;
@@ -33,5 +33,13 @@ public abstract class StateMachineBehaviour
         }
     }
 
-    public abstract void Exit();
+    //public abstract void Exit();
+
+    public virtual void Exit()
+    {
+        foreach (var transition in Transitions)
+        {
+            transition.Reset();
+        }
+    }
 }

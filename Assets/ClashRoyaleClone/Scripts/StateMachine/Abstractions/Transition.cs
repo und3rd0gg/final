@@ -6,4 +6,9 @@ public abstract class Transition
     public Type TargetBehaviour { get; protected set; }
 
     public abstract void Tick();
+
+    public virtual void Reset()
+    {
+        IsReadyToTransit = false;
+    }
 }
