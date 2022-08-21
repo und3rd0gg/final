@@ -1,14 +1,17 @@
 ﻿using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(Animator))]
 public class Character : CharacterStateMachine, IAttackable
 {
     private Health _health;
     private Animator _animator;
+    private Rigidbody _rigidbody;
 
     [field: SerializeField] public int CreationPrice { get; private set; } = 1;
     [field: SerializeField] public Sprite Icon { get; private set; }
-    
+    [field: SerializeField] public PlaySide PlaySide { get; private set; }
+
     public Vector3 Position => transform.position;
     public bool IsAlive => gameObject.activeInHierarchy;
 
@@ -16,6 +19,7 @@ public class Character : CharacterStateMachine, IAttackable
     {
         _health = GetComponent<Health>();
         _animator = GetComponent<Animator>();
+        _rigidbody = GetComponent<Rigidbody>();
     }
 
     private void OnEnable()
@@ -32,13 +36,13 @@ public class Character : CharacterStateMachine, IAttackable
     
     private void OnHealthDecreased(int amount)
     {
-        _animator.SetTrigger(AnimatorCharacterController.Params.Hit);
+        _animator.Play(AnimatorCharacterController.States.Hit);
     }
     
     private void OnHealthEnded()
     {
-        _animator.SetBool(AnimatorCharacterController.Params.IsDead, true);
-        _animator.Play("Death");
+        _animator.Play(AnimatorCharacterController.States.Death);
+        enabled = false;
     }
 
     public void ApplyDamage(int damage)
@@ -51,6 +55,13 @@ public class Character : CharacterStateMachine, IAttackable
         transform.position = position;
         Settings = new CharacterStateMachineSettings(mainTarget);
         this.enabled = true;
+        _rigidbody.constraints = RigidbodyConstraints.None;
         InitializeBehaviorMap();
     }
+}
+
+public enum PlaySide
+{
+    Player,
+    Enemy
 }

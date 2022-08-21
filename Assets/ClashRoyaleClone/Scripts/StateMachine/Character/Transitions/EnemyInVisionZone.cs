@@ -15,7 +15,6 @@ public class EnemyInVisionZone : Transition
 
     public override void Tick()
     {
-        Debug.Log(ToString());
         if (Vector3.Distance(_characterTransform.position, _settings.CurrentTarget.Position) < _stopDistance)
         {
             IsReadyToTransit = true;

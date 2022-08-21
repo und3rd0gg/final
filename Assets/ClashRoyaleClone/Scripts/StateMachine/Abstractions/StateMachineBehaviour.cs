@@ -32,9 +32,7 @@ public abstract class StateMachineBehaviour
             transition.Tick();
         }
     }
-
-    //public abstract void Exit();
-
+    
     public virtual void Exit()
     {
         foreach (var transition in Transitions)

@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(Animator))]
 public class Attacker : MonoBehaviour
@@ -8,15 +10,18 @@ public class Attacker : MonoBehaviour
 
     private Animator _animator;
     private IAttackable _target;
+    private Coroutine _attackRoutine;
+    private readonly int[] _punchAnimations =
+        {AnimatorCharacterController.States.PunchLeft, AnimatorCharacterController.States.PunchRight};
 
     private void Awake()
     {
         _animator = GetComponent<Animator>();
     }
 
-    private void Start()
+    private void OnDisable()
     {
-        StartCoroutine(FightRoutine());
+        StopCoroutine(_attackRoutine);
     }
 
     private void Reset()
@@ -28,15 +33,24 @@ public class Attacker : MonoBehaviour
     {
         while (enabled)
         {
-            _animator.SetTrigger(AnimatorCharacterController.Params.PunchRight);
+            _animator.Play(ChooseRandomAnimation());
             _target.ApplyDamage(_damage);
-            var animationLength = _animator.GetCurrentAnimatorStateInfo(0).length;
-            yield return new WaitForSeconds(animationLength);
+            var length = _animator.GetCurrentAnimatorStateInfo(0).length;
+            yield return new WaitForSeconds(length);
         }
     }
 
-    public void SetTarget(IAttackable target)
+    private int ChooseRandomAnimation()
+    {
+        var animationIndex = Random.Range(0, _punchAnimations.Length);
+        var animation = _punchAnimations[animationIndex];
+        return animation;
+    }
+
+    public void Initialize(IAttackable target)
     {
         _target = target;
+        enabled = true;
+        _attackRoutine = StartCoroutine(FightRoutine());
     }
 }

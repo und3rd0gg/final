@@ -18,8 +18,9 @@ public class AttackState : StateMachineBehaviour
 
     public override void Enter()
     {
+        _attacker.Initialize(_settings.CurrentTarget);
         _attacker.enabled = true;
-        _attacker.SetTarget(_settings.CurrentTarget);
+        
     }
 
     public override void Exit()

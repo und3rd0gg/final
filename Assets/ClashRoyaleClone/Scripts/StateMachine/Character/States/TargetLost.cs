@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-public class TargetLost : Transition
+﻿public class TargetLost : Transition
 {
     private CharacterStateMachineSettings _settings;
     
@@ -12,8 +10,6 @@ public class TargetLost : Transition
 
     public override void Tick()
     {
-        Debug.Log(ToString());
-        
         if (!_settings.CurrentTarget.IsAlive)
         {
             _settings.CurrentTarget = _settings.MainTarget;

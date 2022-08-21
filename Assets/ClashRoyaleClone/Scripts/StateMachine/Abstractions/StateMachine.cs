@@ -16,9 +16,6 @@ public abstract class StateMachine : MonoBehaviour
         {
             SetBehaviour(nextBehaviour);
         }
-        
-        //delete
-        Debug.Log(gameObject.name + " current behaviour: " + _currentBehaviour.ToString());
     }
 
     protected void SetBehaviourByDefault<T>() where T : StateMachineBehaviour
