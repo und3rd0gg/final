@@ -13,7 +13,7 @@ public class Character : CharacterStateMachine, IAttackable
     [field: SerializeField] public PlaySide PlaySide { get; private set; }
 
     public Vector3 Position => transform.position;
-    public bool IsAlive => gameObject.activeInHierarchy;
+    public bool IsAlive => this.enabled;
 
     protected void Awake()
     {
@@ -41,6 +41,7 @@ public class Character : CharacterStateMachine, IAttackable
     
     private void OnHealthEnded()
     {
+        Exit();
         _animator.Play(AnimatorCharacterController.States.Death);
         enabled = false;
     }
@@ -53,7 +54,7 @@ public class Character : CharacterStateMachine, IAttackable
     public void Initialize(Vector3 position, IAttackable mainTarget)
     {
         transform.position = position;
-        Settings = new CharacterStateMachineSettings(mainTarget);
+        Settings = new CharacterStateMachineSettings(PlaySide, mainTarget);
         this.enabled = true;
         _rigidbody.constraints = RigidbodyConstraints.None;
         InitializeBehaviorMap();

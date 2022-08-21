@@ -55,5 +55,11 @@ public abstract class StateMachine : MonoBehaviour
         return BehaviorMap[behaviourType];
     }
 
+    protected void Exit()
+    {
+        _currentBehaviour?.Exit();
+        enabled = false;
+    }
+
     protected abstract void InitializeBehaviorMap();
 }

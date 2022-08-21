@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -32,16 +33,28 @@ public class GameManager : MonoBehaviour
 
     private void PlayerWon()
     {
+        PauseGame();
         _winScreen.SetActive(true);
     }
 
     private void PlayerLose()
     {
+        PauseGame();
         _loseScreen.SetActive(true);
     }
 
     public void PauseGame()
     {
         Time.timeScale = 0;
+    }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void ExitGame()
+    {
+        Application.Quit();
     }
 }

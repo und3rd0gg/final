@@ -45,7 +45,8 @@ public class MoveState : StateMachineBehaviour
     {
         if (detectedObject.TryGetComponent<IAttackable>(out var attackableObject))
         {
-            SetTarget(attackableObject);
+            if(attackableObject.PlaySide != _settings.PlaySide)
+                SetTarget(attackableObject);
         }
     }
 }

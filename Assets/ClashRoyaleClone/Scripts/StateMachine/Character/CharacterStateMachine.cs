@@ -31,11 +31,14 @@ public class CharacterStateMachine : StateMachine
 
 public class CharacterStateMachineSettings
 {
-    public IAttackable MainTarget;
     public IAttackable CurrentTarget;
+    
+    public PlaySide PlaySide { get; private set; }
+    public IAttackable MainTarget { get; private set; }
 
-    public CharacterStateMachineSettings(IAttackable mainTarget)
+    public CharacterStateMachineSettings(PlaySide playSide, IAttackable mainTarget)
     {
+        PlaySide = playSide;
         MainTarget = mainTarget;
         CurrentTarget = MainTarget;
     }
