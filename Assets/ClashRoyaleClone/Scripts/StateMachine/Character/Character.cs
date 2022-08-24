@@ -4,15 +4,35 @@
 [RequireComponent(typeof(Animator))]
 public class Character : CharacterStateMachine, IDamagable
 {
+    [SerializeField] private SpawnPointPresenter _spawnPointPresenter;
+    
     private Animator _animator;
     private Health _health;
     private Rigidbody _rigidbody;
+    
+    public bool IsAlive => enabled;
+    
+    public Vector3 Position => transform.position;
 
-    [field: SerializeField]
-    public Sprite Icon { get; private set; }
+    [field: SerializeField] public Sprite Icon { get; private set; }
+    
+    [field: SerializeField] public PlaySide PlaySide { get; private set; }
 
-    [field: SerializeField]
-    public int CreationPrice { get; private set; } = 1;
+    [field: SerializeField] public int CreationPrice { get; private set; } = 1;
+
+    public bool CanSpawn
+    {
+        get
+        {
+            var collided = Physics.Raycast(transform.position, Vector3.down, out var hitInfo);
+
+            if (collided)
+                if (hitInfo.transform.TryGetComponent(out CreationZone creationZone))
+                    if (creationZone.PlaySide == PlaySide)
+                        return true;
+            return false;
+        }
+    }
 
     private void Awake()
     {
@@ -33,23 +53,21 @@ public class Character : CharacterStateMachine, IDamagable
         _health.AmountEndedEvent -= OnHealthEnded;
     }
 
-    [field: SerializeField] public PlaySide PlaySide { get; private set; }
-
-    public bool IsAlive => enabled;
-    public Vector3 Position => transform.position;
-
     public void ApplyDamage(int damage)
     {
         _health.ApplyDamage(damage);
     }
 
-    public void Initialize(Vector3 position, IDamagable mainTarget)
+    public void Initialize(Vector3 position, PlaySide playSide, IDamagable mainTarget)
     {
         transform.position = position;
+        PlaySide = playSide;
         Settings = new CharacterStateMachineSettings(PlaySide, mainTarget);
         enabled = true;
         _rigidbody.constraints = RigidbodyConstraints.None;
+        transform.LookAt(mainTarget.Position);
         InitializeBehaviorMap();
+        _spawnPointPresenter.gameObject.SetActive(false);
     }
 
     private void OnHealthDecreased(int amount)

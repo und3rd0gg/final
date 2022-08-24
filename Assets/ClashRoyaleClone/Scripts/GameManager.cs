@@ -62,6 +62,7 @@ public class GameManager : MonoBehaviour
     public void RestartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        ResumeGame();
     }
 
     public void ExitGame()

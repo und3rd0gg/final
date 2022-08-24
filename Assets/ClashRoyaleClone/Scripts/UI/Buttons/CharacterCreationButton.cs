@@ -7,7 +7,6 @@ public class CharacterCreationButton : MonoBehaviour, IBeginDragHandler, IDragHa
 {
     [SerializeField] private PlayerWarning _playerWarning;
     [SerializeField] private MoneyBalance _moneyBalance;
-    [SerializeField] private Camera _camera;
     [SerializeField] private Tower _mainTarget;
     [SerializeField] private Character _character;
     [SerializeField] private Image _characterIconImage;
@@ -16,6 +15,7 @@ public class CharacterCreationButton : MonoBehaviour, IBeginDragHandler, IDragHa
 
     private Character _currentCharacter;
     private Vector3 _currentCharacterCreationPosition;
+    private Camera _camera;
 
     private void Awake()
     {
@@ -61,7 +61,14 @@ public class CharacterCreationButton : MonoBehaviour, IBeginDragHandler, IDragHa
         if (_currentCharacter == null)
             return;
 
-        _currentCharacter.Initialize(_currentCharacterCreationPosition, _mainTarget);
+        if (!_currentCharacter.CanSpawn)
+        {
+            _moneyBalance.Add(_currentCharacter.CreationPrice);
+            Destroy(_currentCharacter.gameObject);
+            return;
+        }
+
+        _currentCharacter.Initialize(_currentCharacterCreationPosition, PlaySide.Player,  _mainTarget);
         _currentCharacter = null;
     }
 }

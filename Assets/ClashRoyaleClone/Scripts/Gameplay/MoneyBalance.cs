@@ -30,6 +30,12 @@ public class MoneyBalance : MonoBehaviour
         return false;
     }
 
+    public void Add(int amount)
+    {
+        Amount += Math.Abs(amount);
+        AmountChanged?.Invoke(Amount);
+    }
+
     private IEnumerator BalanceIncreaseRoutine()
     {
         while (enabled)
