@@ -2,20 +2,19 @@
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(Animator))]
-public class Character : CharacterStateMachine, IAttackable
+public class Character : CharacterStateMachine, IDamagable
 {
-    private Health _health;
     private Animator _animator;
+    private Health _health;
     private Rigidbody _rigidbody;
 
-    [field: SerializeField] public int CreationPrice { get; private set; } = 1;
-    [field: SerializeField] public Sprite Icon { get; private set; }
-    [field: SerializeField] public PlaySide PlaySide { get; private set; }
+    [field: SerializeField]
+    public Sprite Icon { get; private set; }
 
-    public Vector3 Position => transform.position;
-    public bool IsAlive => this.enabled;
+    [field: SerializeField]
+    public int CreationPrice { get; private set; } = 1;
 
-    protected void Awake()
+    private void Awake()
     {
         _health = GetComponent<Health>();
         _animator = GetComponent<Animator>();
@@ -24,7 +23,7 @@ public class Character : CharacterStateMachine, IAttackable
 
     private void OnEnable()
     {
-        //_health.Decreased += OnHealthDecreased;
+        // _health.Decreased += OnHealthDecreased;
         _health.AmountEndedEvent += OnHealthEnded;
     }
 
@@ -33,31 +32,36 @@ public class Character : CharacterStateMachine, IAttackable
         //_health.Decreased -= OnHealthDecreased;
         _health.AmountEndedEvent -= OnHealthEnded;
     }
-    
-    private void OnHealthDecreased(int amount)
-    {
-        _animator.Play(AnimatorCharacterController.States.Hit);
-    }
-    
-    private void OnHealthEnded()
-    {
-        Exit();
-        _animator.Play(AnimatorCharacterController.States.Death);
-        enabled = false;
-    }
+
+    [field: SerializeField] public PlaySide PlaySide { get; private set; }
+
+    public bool IsAlive => enabled;
+    public Vector3 Position => transform.position;
 
     public void ApplyDamage(int damage)
     {
         _health.ApplyDamage(damage);
     }
 
-    public void Initialize(Vector3 position, IAttackable mainTarget)
+    public void Initialize(Vector3 position, IDamagable mainTarget)
     {
         transform.position = position;
         Settings = new CharacterStateMachineSettings(PlaySide, mainTarget);
-        this.enabled = true;
+        enabled = true;
         _rigidbody.constraints = RigidbodyConstraints.None;
         InitializeBehaviorMap();
+    }
+
+    private void OnHealthDecreased(int amount)
+    {
+        _animator.Play(AnimatorCharacterController.States.Hit);
+    }
+
+    private void OnHealthEnded()
+    {
+        Exit();
+        _animator.Play(AnimatorCharacterController.States.Death);
+        enabled = false;
     }
 }
 

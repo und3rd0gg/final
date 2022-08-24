@@ -5,14 +5,15 @@ using UnityEngine.UI;
 
 public class CharacterCreationButton : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
+    [SerializeField] private PlayerWarning _playerWarning;
+    [SerializeField] private MoneyBalance _moneyBalance;
     [SerializeField] private Camera _camera;
     [SerializeField] private Tower _mainTarget;
     [SerializeField] private Character _character;
     [SerializeField] private Image _characterIconImage;
     [SerializeField] private TMP_Text _price;
-    [Range(0f, 5f)]
-    [SerializeField] private float _offsetDelta = 0;
-    
+    [Range(0f, 5f)] [SerializeField] private float _offsetDelta = 0;
+
     private Character _currentCharacter;
     private Vector3 _currentCharacterCreationPosition;
 
@@ -29,11 +30,21 @@ public class CharacterCreationButton : MonoBehaviour, IBeginDragHandler, IDragHa
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        _currentCharacter = Instantiate(_character);
+        if (_moneyBalance.TrySpend(_character.CreationPrice))
+        {
+            _currentCharacter = Instantiate(_character);
+        }
+        else
+        {
+            _playerWarning.Show("You have not enough money!");
+        }
     }
 
     public void OnDrag(PointerEventData eventData)
     {
+        if (_currentCharacter == null)
+            return;
+
         var spawnDestination = _camera.ScreenPointToRay(eventData.position);
 
         if (Physics.Raycast(spawnDestination, out var hit))
@@ -47,6 +58,10 @@ public class CharacterCreationButton : MonoBehaviour, IBeginDragHandler, IDragHa
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        if (_currentCharacter == null)
+            return;
+
         _currentCharacter.Initialize(_currentCharacterCreationPosition, _mainTarget);
+        _currentCharacter = null;
     }
 }

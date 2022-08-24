@@ -13,7 +13,6 @@ public class Mover : MonoBehaviour
     private Animator _animator;
 
     public event Action DestinationReached;
-    //public event Action DestinationFollowingAborted;
 
     private void Awake()
     {
@@ -68,6 +67,7 @@ public class Mover : MonoBehaviour
         }
 
         _navMeshAgent.isStopped = true;
+        _navMeshAgent.velocity = Vector3.zero;
         _animator.SetFloat(AnimatorCharacterController.Params.Speed, 0);
         enabled = false;
     }

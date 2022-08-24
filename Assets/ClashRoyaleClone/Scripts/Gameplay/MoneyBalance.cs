@@ -1,18 +1,42 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MoneyBalance : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [Min(1)] [SerializeField] private float _increaseBalanceDelay = 1;
+    [Min(1)] [SerializeField] private int _increaseBalanceValue = 2;
+
+    public event Action<int> AmountChanged;
+
+    [field: SerializeField]
+    public int Amount { get; private set; }
+
+    private void Start()
     {
-        
+        AmountChanged?.Invoke(Amount);
+        StartCoroutine(BalanceIncreaseRoutine());
     }
 
-    // Update is called once per frame
-    void Update()
+    public bool TrySpend(int amount)
     {
-        
+        if ((Amount - amount) >= 0)
+        {
+            Amount -= Mathf.Abs(amount);
+            AmountChanged?.Invoke(Amount);
+            return true;
+        }
+
+        return false;
+    }
+
+    private IEnumerator BalanceIncreaseRoutine()
+    {
+        while (enabled)
+        {
+            yield return new WaitForSeconds(_increaseBalanceDelay);
+            Amount += _increaseBalanceValue;
+            AmountChanged?.Invoke(Amount);
+        }
     }
 }

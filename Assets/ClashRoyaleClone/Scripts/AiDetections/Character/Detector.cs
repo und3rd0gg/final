@@ -7,10 +7,10 @@ public class Detector : MonoBehaviour, IDetector
 {
     private List<GameObject> _detectedObjects = new List<GameObject>();
 
-    public GameObject[] DetectedObjects => _detectedObjects.ToArray();
-
     public event ObjectDetectionHandler GameObjectDetected;
     public event ObjectDetectionHandler GameObjectDetectionReleased;
+
+    public GameObject[] DetectedObjects => _detectedObjects.ToArray();
 
     private void OnTriggerEnter(Collider other)
     {

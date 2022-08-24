@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,6 +5,8 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Button))]
 public class PauseButton : MonoBehaviour
 {
+    [SerializeField] private MenuCanvas _menuCanvas;
+    
     private Button _button;
     private Image _image;
 
@@ -22,7 +23,7 @@ public class PauseButton : MonoBehaviour
 
     private void StopGame()
     {
+        _menuCanvas.Activate();
         _image.enabled = false;
-        GameManager.instance.PauseGame();
     }
 }

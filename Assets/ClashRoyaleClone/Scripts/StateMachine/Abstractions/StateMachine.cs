@@ -4,18 +4,15 @@ using UnityEngine;
 
 public abstract class StateMachine : MonoBehaviour
 {
-    protected Dictionary<Type, StateMachineBehaviour> BehaviorMap;
     private StateMachineBehaviour _currentBehaviour;
+    protected Dictionary<Type, StateMachineBehaviour> BehaviorMap;
 
     protected virtual void Update()
     {
         _currentBehaviour?.Tick();
         var nextBehaviour = _currentBehaviour.GetNextBehavior();
 
-        if (nextBehaviour != null)
-        {
-            SetBehaviour(nextBehaviour);
-        }
+        if (nextBehaviour != null) SetBehaviour(nextBehaviour);
     }
 
     protected void SetBehaviourByDefault<T>() where T : StateMachineBehaviour

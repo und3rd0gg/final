@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -9,7 +8,7 @@ public class Attacker : MonoBehaviour
     [Min(1)] [SerializeField] private int _damage = 10;
 
     private Animator _animator;
-    private IAttackable _target;
+    private IDamagable _target;
     private Coroutine _attackRoutine;
     private readonly int[] _punchAnimations =
         {AnimatorCharacterController.States.PunchLeft, AnimatorCharacterController.States.PunchRight};
@@ -47,7 +46,7 @@ public class Attacker : MonoBehaviour
         return animation;
     }
 
-    public void Initialize(IAttackable target)
+    public void Initialize(IDamagable target)
     {
         _target = target;
         enabled = true;

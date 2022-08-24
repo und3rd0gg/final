@@ -20,7 +20,7 @@ public class MoveState : StateMachineBehaviour
         _settings = settings;
     }
 
-    private void SetTarget(IAttackable target)
+    private void SetTarget(IDamagable target)
     {
         _settings.CurrentTarget = target;
         _mover.SetDestination(target.Position);
@@ -43,7 +43,7 @@ public class MoveState : StateMachineBehaviour
 
     private void OnGameObjectDetected(GameObject detector, GameObject detectedObject)
     {
-        if (detectedObject.TryGetComponent<IAttackable>(out var attackableObject))
+        if (detectedObject.TryGetComponent<IDamagable>(out var attackableObject))
         {
             if(attackableObject.PlaySide != _settings.PlaySide)
                 SetTarget(attackableObject);

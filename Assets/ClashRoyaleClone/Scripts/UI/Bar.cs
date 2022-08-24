@@ -26,7 +26,7 @@ public class Bar : MonoBehaviour
     {
         _targetValue.AmountChangedEvent -= OnAmountChanged;
     }
-
+    
     private void OnAmountChanged(int currentAmount)
     {
         if (_changeBarAmountRoutine != null)

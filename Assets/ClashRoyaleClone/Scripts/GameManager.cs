@@ -1,27 +1,22 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager instance;
     [SerializeField] private Health _playerTowerHealth;
     [SerializeField] private Health _enemyTowerHealth;
 
     [SerializeField] private GameObject _winScreen;
     [SerializeField] private GameObject _loseScreen;
 
-    public static GameManager instance;
-
     private void Start()
     {
         if (instance == null)
-        {
             instance = this;
-        }
-        else if (instance == this)
-        {
-            Destroy(gameObject);
-        }
-        
+        else if (instance == this) Destroy(gameObject);
+
         DontDestroyOnLoad(gameObject);
     }
 
@@ -46,6 +41,22 @@ public class GameManager : MonoBehaviour
     public void PauseGame()
     {
         Time.timeScale = 0;
+    }
+
+    public void PauseGame(float delay)
+    {
+        StartCoroutine(DelayRoutine());
+
+        IEnumerator DelayRoutine()
+        {
+            yield return new WaitForSeconds(delay);
+            PauseGame();
+        }
+    }
+
+    public void ResumeGame()
+    {
+        Time.timeScale = 1;
     }
 
     public void RestartGame()

@@ -21,3 +21,19 @@ public static class AnimatorCharacterController
         public static readonly int Death = Animator.StringToHash("Death");
     }
 }
+
+public static class AnimatorPlayerWarningContoller
+{
+    public static class States
+    {
+        public static readonly int FadeIn = Animator.StringToHash("FadeIn");
+    }
+}
+
+public static class AnimatorUiWidgetMenuCanvasController
+{
+    public class States
+    {
+        public static readonly int FadeIn = Animator.StringToHash("FadeIn");
+    }
+}

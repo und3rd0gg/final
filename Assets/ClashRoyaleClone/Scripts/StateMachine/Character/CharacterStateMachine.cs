@@ -4,6 +4,7 @@ using ClashRoyaleClone.Scripts.AiDetections.Abstractions;
 using UnityEngine;
 using UnityEngine.AI;
 
+[RequireComponent(typeof(Attacker))]
 [RequireComponent(typeof(Mover))]
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(NavMeshAgent))]
@@ -24,19 +25,20 @@ public class CharacterStateMachine : StateMachine
                 typeof(MoveState),
                 new MoveState(Settings, GetComponent<Mover>(), GetComponentInChildren<IDetector>())
             },
-            {typeof(AttackState), new AttackState(Settings, GetComponent<Attacker>())}
+            { typeof(AttackState), new AttackState(Settings, GetComponent<Attacker>()) },
         };
     }
 }
 
 public class CharacterStateMachineSettings
 {
-    public IAttackable CurrentTarget;
-    
-    public PlaySide PlaySide { get; private set; }
-    public IAttackable MainTarget { get; private set; }
+    public IDamagable CurrentTarget;
 
-    public CharacterStateMachineSettings(PlaySide playSide, IAttackable mainTarget)
+    public PlaySide PlaySide { get; private set; }
+
+    public IDamagable MainTarget { get; private set; }
+
+    public CharacterStateMachineSettings(PlaySide playSide, IDamagable mainTarget)
     {
         PlaySide = playSide;
         MainTarget = mainTarget;

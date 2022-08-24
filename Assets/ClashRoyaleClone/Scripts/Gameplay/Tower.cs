@@ -2,7 +2,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Health))]
-public class Tower : MonoBehaviour, IAttackable
+public class Tower : MonoBehaviour, IDamagable
 {
     private Health _health;
 
