@@ -22,8 +22,8 @@ public class GameManager : MonoBehaviour
 
     private void OnEnable()
     {
-        _playerTowerHealth.AmountEndedEvent += PlayerLose;
-        _enemyTowerHealth.AmountEndedEvent += PlayerWon;
+        _playerTowerHealth.AmountEnded += PlayerLose;
+        _enemyTowerHealth.AmountEnded += PlayerWon;
     }
 
     private void PlayerWon()

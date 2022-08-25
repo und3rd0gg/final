@@ -19,12 +19,12 @@ public class Bar : MonoBehaviour
 
     private void OnEnable()
     {
-        _targetValue.AmountChangedEvent += OnAmountChanged;
+        _targetValue.AmountChanged += OnAmountChanged;
     }
 
     private void OnDisable()
     {
-        _targetValue.AmountChangedEvent -= OnAmountChanged;
+        _targetValue.AmountChanged -= OnAmountChanged;
     }
     
     private void OnAmountChanged(int currentAmount)

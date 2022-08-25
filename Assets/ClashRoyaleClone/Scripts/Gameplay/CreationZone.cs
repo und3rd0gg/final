@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -12,16 +11,6 @@ public class CreationZone : MonoBehaviour
     {
         _collider = GetComponent<Collider>();
     }
-
-    public Vector3 GetRandomLocation()
-    {
-        var bounds = _collider.bounds;
-
-        return new Vector3(
-            Random.Range(bounds.min.x, bounds.max.x),
-            Random.Range(bounds.min.y, bounds.max.y),
-            Random.Range(bounds.min.z, bounds.max.z));
-    }
     
     private void Reset()
     {
@@ -31,5 +20,15 @@ public class CreationZone : MonoBehaviour
         {
             PlaySide = parent.PlaySide;
         }
+    }
+
+    public Vector3 GetRandomLocation()
+    {
+        var bounds = _collider.bounds;
+
+        return new Vector3(
+            Random.Range(bounds.min.x, bounds.max.x),
+            Random.Range(bounds.min.y, bounds.max.y),
+            Random.Range(bounds.min.z, bounds.max.z));
     }
 }

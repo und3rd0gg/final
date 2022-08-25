@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using ClashRoyaleClone.Scripts.AiDetections.Abstractions;
 using UnityEngine;
-using UnityEngine.AI;
 
 [RequireComponent(typeof(Attacker))]
 [RequireComponent(typeof(Mover))]
 [RequireComponent(typeof(Animator))]
-[RequireComponent(typeof(NavMeshAgent))]
 public class CharacterStateMachine : StateMachine
 {
     protected CharacterStateMachineSettings Settings;
@@ -34,12 +32,15 @@ public class CharacterStateMachineSettings
 {
     public IDamagable CurrentTarget;
 
+    public Transform CharacterTransform { get; private set; }
+
     public PlaySide PlaySide { get; private set; }
 
     public IDamagable MainTarget { get; private set; }
 
-    public CharacterStateMachineSettings(PlaySide playSide, IDamagable mainTarget)
+    public CharacterStateMachineSettings(Transform characterTransform, PlaySide playSide, IDamagable mainTarget)
     {
+        CharacterTransform = characterTransform;
         PlaySide = playSide;
         MainTarget = mainTarget;
         CurrentTarget = MainTarget;

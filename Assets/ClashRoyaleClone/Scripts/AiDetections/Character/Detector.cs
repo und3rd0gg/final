@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using ClashRoyaleClone.Scripts.AiDetections.Abstractions;
 using UnityEngine;
 
 public class Detector : MonoBehaviour, IDetector
 {
-    [SerializeField] private bool _detectAllies = false;
-    
     private List<GameObject> _detectedObjects = new List<GameObject>();
 
     public event ObjectDetectionHandler GameObjectDetected;
@@ -29,12 +26,6 @@ public class Detector : MonoBehaviour, IDetector
         {
             ReleaseDetection(detectedObject);
         }
-    }
-
-    private bool IsDetectableObject(Collider coll, out IDetectable detectedObject)
-    {
-        detectedObject = coll.GetComponent<IDetectable>();
-        return detectedObject != null;
     }
 
     public void Detect(IDetectable detectableObject)
@@ -78,5 +69,11 @@ public class Detector : MonoBehaviour, IDetector
     public float GetDistance(IDetectable detectedObject)
     {
         return Vector3.Distance(transform.position, detectedObject.GameObject.transform.position);
+    }
+    
+    private bool IsDetectableObject(Collider coll, out IDetectable detectedObject)
+    {
+        detectedObject = coll.GetComponent<IDetectable>();
+        return detectedObject != null;
     }
 }

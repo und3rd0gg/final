@@ -2036,9 +2036,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 130fc72945d7692469af92d1d2594c25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _amount: 30
+  _amount: 50
   _minAmount: 0
-  _maxAmount: 30
+  _maxAmount: 50
 --- !u!95 &3541065119779467328
 Animator:
   serializedVersion: 3
@@ -2094,7 +2094,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 4
+  m_Constraints: 84
   m_CollisionDetection: 0
 --- !u!114 &4067645841185844232
 MonoBehaviour:
@@ -2758,7 +2758,7 @@ GameObject:
   - component: {fileID: 4067645841548637498}
   - component: {fileID: 4067645841548637444}
   - component: {fileID: 2926158887706816112}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: VisionZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2791,7 +2791,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bb87c86584a40afa2a6fb09c7c6b1ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _detectAllies: 0
 --- !u!135 &2926158887706816112
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -6013,6 +6012,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpawnPointPresenter
       objectReference: {fileID: 0}
+    - target: {fileID: 177389871086072747, guid: 6606d3b397bbba1428723417f448ee02, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4494281218966450142, guid: 6606d3b397bbba1428723417f448ee02, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -6065,6 +6068,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7839340831205371212, guid: 6606d3b397bbba1428723417f448ee02, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7839340831205371212, guid: 6606d3b397bbba1428723417f448ee02, type: 3}
+      propertyPath: _character
+      value: 
+      objectReference: {fileID: 3541065119779467331}
+    - target: {fileID: 7839340831205371212, guid: 6606d3b397bbba1428723417f448ee02, type: 3}
+      propertyPath: _deltaPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7839340831205371212, guid: 6606d3b397bbba1428723417f448ee02, type: 3}
+      propertyPath: _deltaPosition.y
+      value: 0.1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6606d3b397bbba1428723417f448ee02, type: 3}
 --- !u!4 &8201989275219639878 stripped
@@ -6078,7 +6097,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 5732437181963948440}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: af3f480a7a9e3634084eeb5d0064103b, type: 3}
   m_Name: 

@@ -27,6 +27,13 @@ public class Attacker : MonoBehaviour
     {
         enabled = false;
     }
+    
+    public void Initialize(IDamagable target)
+    {
+        _target = target;
+        enabled = true;
+        _attackRoutine = StartCoroutine(FightRoutine());
+    }
 
     private IEnumerator FightRoutine()
     {
@@ -44,12 +51,5 @@ public class Attacker : MonoBehaviour
         var animationIndex = Random.Range(0, _punchAnimations.Length);
         var animation = _punchAnimations[animationIndex];
         return animation;
-    }
-
-    public void Initialize(IDamagable target)
-    {
-        _target = target;
-        enabled = true;
-        _attackRoutine = StartCoroutine(FightRoutine());
     }
 }

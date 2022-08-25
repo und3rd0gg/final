@@ -3,8 +3,16 @@ using UnityEngine;
 
 public abstract class CharacterCharacteristic : MonoBehaviour
 {
-    public event Action<int> AmountChangedEvent;
-    public event Action AmountEndedEvent;
+    [SerializeField] protected int _amount;
+
+    [Header("Basic Values")] [SerializeField]
+    protected int _minAmount = 0;
+
+    [SerializeField] protected int _maxAmount = 100;
+    
+    public event Action<int> AmountChanged;
+
+    public event Action AmountEnded;
 
     public int Amount
     {
@@ -12,24 +20,17 @@ public abstract class CharacterCharacteristic : MonoBehaviour
         protected set
         {
             _amount = Mathf.Clamp(value, _minAmount, _maxAmount);
-            AmountChangedEvent?.Invoke(_amount);
+            AmountChanged?.Invoke(_amount);
 
             if (value <= _minAmount)
-                AmountEndedEvent?.Invoke();
+                AmountEnded?.Invoke();
         }
     }
 
     public float NormalizedAmount => Mathf.Abs((float) _amount / _maxAmount);
 
-    [SerializeField] protected int _amount;
-
-    [Header("Basic Values")] [SerializeField]
-    protected int _minAmount = 0;
-
-    [SerializeField] protected int _maxAmount = 100;
-
     protected void OnEnable()
     {
-        AmountChangedEvent?.Invoke(_amount);
+        AmountChanged?.Invoke(_amount);
     }
 }

@@ -6,11 +6,9 @@ public class MoneyBalance : MonoBehaviour
 {
     [Min(1)] [SerializeField] private float _increaseBalanceDelay = 1;
     [Min(1)] [SerializeField] private int _increaseBalanceValue = 2;
+    [field: SerializeField] public int Amount { get; private set; }
 
     public event Action<int> AmountChanged;
-
-    [field: SerializeField]
-    public int Amount { get; private set; }
 
     private void Start()
     {

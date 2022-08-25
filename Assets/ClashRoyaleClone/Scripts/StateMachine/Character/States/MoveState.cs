@@ -12,7 +12,7 @@ public class MoveState : StateMachineBehaviour
     public MoveState(CharacterStateMachineSettings settings, Mover mover, IDetector detectorComponent) : base(
         new List<Transition>
         {
-            new EnemyInVisionZone(mover.transform, settings),
+            new EnemyInVisionZone(settings),
         })
     {
         _mover = mover;
@@ -43,10 +43,15 @@ public class MoveState : StateMachineBehaviour
 
     private void OnGameObjectDetected(GameObject detector, GameObject detectedObject)
     {
-        if (detectedObject.TryGetComponent<IDamagable>(out var attackableObject))
+        if (detectedObject.TryGetComponent<IDamagable>(out var damagableObject))
         {
-            if(attackableObject.PlaySide != _settings.PlaySide)
-                SetTarget(attackableObject);
+            if(IsTargetValid(damagableObject))
+                SetTarget(damagableObject);
         }
+    }
+
+    private bool IsTargetValid(IDamagable target)
+    {
+        return target.PlaySide != _settings.PlaySide && target.IsAlive;
     }
 }

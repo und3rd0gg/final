@@ -9,8 +9,8 @@ public class Character : CharacterStateMachine, IDamagable
     private Animator _animator;
     private Health _health;
     private Rigidbody _rigidbody;
-    
-    public bool IsAlive => enabled;
+
+    public bool IsAlive => _health.Amount > 0;
     
     public Vector3 Position => transform.position;
 
@@ -19,20 +19,6 @@ public class Character : CharacterStateMachine, IDamagable
     [field: SerializeField] public PlaySide PlaySide { get; private set; }
 
     [field: SerializeField] public int CreationPrice { get; private set; } = 1;
-
-    public bool CanSpawn
-    {
-        get
-        {
-            var collided = Physics.Raycast(transform.position, Vector3.down, out var hitInfo);
-
-            if (collided)
-                if (hitInfo.transform.TryGetComponent(out CreationZone creationZone))
-                    if (creationZone.PlaySide == PlaySide)
-                        return true;
-            return false;
-        }
-    }
 
     private void Awake()
     {
@@ -43,14 +29,12 @@ public class Character : CharacterStateMachine, IDamagable
 
     private void OnEnable()
     {
-        // _health.Decreased += OnHealthDecreased;
-        _health.AmountEndedEvent += OnHealthEnded;
+        _health.AmountEnded += OnHealthEnded;
     }
 
     private void OnDisable()
     {
-        //_health.Decreased -= OnHealthDecreased;
-        _health.AmountEndedEvent -= OnHealthEnded;
+        _health.AmountEnded -= OnHealthEnded;
     }
 
     public void ApplyDamage(int damage)
@@ -62,12 +46,25 @@ public class Character : CharacterStateMachine, IDamagable
     {
         transform.position = position;
         PlaySide = playSide;
-        Settings = new CharacterStateMachineSettings(PlaySide, mainTarget);
+        Settings = new CharacterStateMachineSettings(transform, PlaySide, mainTarget);
         enabled = true;
-        _rigidbody.constraints = RigidbodyConstraints.None;
+        _rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
         transform.LookAt(mainTarget.Position);
         InitializeBehaviorMap();
         _spawnPointPresenter.gameObject.SetActive(false);
+    }
+
+    public bool CanSpawn(out Vector3 point)
+    {
+        var collided = Physics.Raycast(transform.position, Vector3.down, out var hitInfo);
+        point = hitInfo.point;
+
+        if (collided)
+            if (hitInfo.transform.TryGetComponent(out CreationZone creationZone))
+                if (creationZone.PlaySide == PlaySide)
+                    return true;
+
+        return false;
     }
 
     private void OnHealthDecreased(int amount)

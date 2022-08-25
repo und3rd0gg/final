@@ -61,14 +61,14 @@ public class CharacterCreationButton : MonoBehaviour, IBeginDragHandler, IDragHa
         if (_currentCharacter == null)
             return;
 
-        if (!_currentCharacter.CanSpawn)
+        if (!_currentCharacter.CanSpawn(out var point))
         {
             _moneyBalance.Add(_currentCharacter.CreationPrice);
             Destroy(_currentCharacter.gameObject);
             return;
         }
 
-        _currentCharacter.Initialize(_currentCharacterCreationPosition, PlaySide.Player,  _mainTarget);
+        _currentCharacter.Initialize(_currentCharacterCreationPosition, PlaySide.Player, _mainTarget);
         _currentCharacter = null;
     }
 }
