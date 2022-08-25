@@ -1,13 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using ClashRoyaleClone.Scripts.AiDetections.Abstractions;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
 public class Detector : MonoBehaviour, IDetector
 {
+    [SerializeField] private bool _detectAllies = false;
+    
     private List<GameObject> _detectedObjects = new List<GameObject>();
 
     public event ObjectDetectionHandler GameObjectDetected;
+
     public event ObjectDetectionHandler GameObjectDetectionReleased;
 
     public GameObject[] DetectedObjects => _detectedObjects.ToArray();
@@ -30,7 +33,7 @@ public class Detector : MonoBehaviour, IDetector
 
     private bool IsDetectableObject(Collider coll, out IDetectable detectedObject)
     {
-        detectedObject = coll.GetComponentInParent<IDetectable>();
+        detectedObject = coll.GetComponent<IDetectable>();
         return detectedObject != null;
     }
 

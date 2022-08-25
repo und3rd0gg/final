@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.43726084, g: 0.75450844, b: 1.0290486, a: 1}
+  m_IndirectSpecularColor: {r: 0.43849614, g: 0.7540145, b: 1.0313286, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2192,7 +2192,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 66.9
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -10286,6 +10286,7 @@ GameObject:
   - component: {fileID: 789404858688831739}
   - component: {fileID: 789404858688831738}
   - component: {fileID: 789404858688831737}
+  - component: {fileID: 789404858688831740}
   m_Layer: 0
   m_Name: PlayerCastle
   m_TagString: Untagged
@@ -10355,6 +10356,18 @@ MonoBehaviour:
   _amount: 175
   _minAmount: 0
   _maxAmount: 175
+--- !u!114 &789404858688831740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 789404858688831735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc4a648e30b34abf9dbb2fa2f9434abe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &789404859289875211
 GameObject:
   m_ObjectHideFlags: 0
@@ -11371,7 +11384,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6476392347464649040, guid: b8f1cd4131c5bc64a990ea0a6ddabef8, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6476392347464649040, guid: b8f1cd4131c5bc64a990ea0a6ddabef8, type: 3}
       propertyPath: m_AnchorMin.x
@@ -11379,7 +11392,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6476392347464649040, guid: b8f1cd4131c5bc64a990ea0a6ddabef8, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6476392347464649040, guid: b8f1cd4131c5bc64a990ea0a6ddabef8, type: 3}
       propertyPath: m_SizeDelta.x
@@ -11419,11 +11432,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6476392347464649040, guid: b8f1cd4131c5bc64a990ea0a6ddabef8, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 64
       objectReference: {fileID: 0}
     - target: {fileID: 6476392347464649040, guid: b8f1cd4131c5bc64a990ea0a6ddabef8, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -64
       objectReference: {fileID: 0}
     - target: {fileID: 6476392347464649040, guid: b8f1cd4131c5bc64a990ea0a6ddabef8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
