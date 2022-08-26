@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
 public class MenuCanvas : MonoBehaviour
 {
     [SerializeField] private GameObject _uiWidgetPauseMenu;
@@ -16,6 +17,6 @@ public class MenuCanvas : MonoBehaviour
         _uiWidgetPauseMenu.SetActive(true);
         _animator.Play(AnimatorUiWidgetMenuCanvasController.States.FadeIn);
         var activationTime = _animator.GetCurrentAnimatorStateInfo(0).length;
-        GameManager.instance.PauseGame(activationTime);
+        GameManager.Instance.PauseGame(activationTime);
     }
 }

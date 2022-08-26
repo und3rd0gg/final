@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(SpriteRenderer))]
 public class SpawnPointPresenter : MonoBehaviour
 {
     [SerializeField] private Vector3 _deltaPosition;

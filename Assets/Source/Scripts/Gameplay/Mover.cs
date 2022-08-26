@@ -35,7 +35,7 @@ public class Mover : MonoBehaviour
     {
         var currentVelocity = _navMeshAgent.velocity.magnitude;
         _animator.SetFloat(AnimatorCharacterController.Params.Speed, currentVelocity);
-        _animator.Play("Run/Sprint");
+        _animator.Play(AnimatorCharacterController.States.Run);
     }
 
     private void Reset()

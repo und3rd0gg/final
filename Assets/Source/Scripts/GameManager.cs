@@ -4,18 +4,19 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance;
     [SerializeField] private Health _playerTowerHealth;
     [SerializeField] private Health _enemyTowerHealth;
-
     [SerializeField] private GameObject _winScreen;
     [SerializeField] private GameObject _loseScreen;
+    
+    public static GameManager Instance;
 
     private void Start()
     {
-        if (instance == null)
-            instance = this;
-        else if (instance == this) Destroy(gameObject);
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(gameObject);
 
         DontDestroyOnLoad(gameObject);
     }

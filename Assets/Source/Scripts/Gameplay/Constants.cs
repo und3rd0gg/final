@@ -19,6 +19,7 @@ public static class AnimatorCharacterController
         public static readonly int PunchRight = Animator.StringToHash("PunchLeft");
         public static readonly int Hit = Animator.StringToHash("Hit");
         public static readonly int Death = Animator.StringToHash("Death");
+        public static readonly int Run = Animator.StringToHash("Run/Sprint");
     }
 }
 
