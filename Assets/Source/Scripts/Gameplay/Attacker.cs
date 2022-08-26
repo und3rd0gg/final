@@ -5,7 +5,8 @@ using Random = UnityEngine.Random;
 [RequireComponent(typeof(Animator))]
 public class Attacker : MonoBehaviour
 {
-    [Min(1)] [SerializeField] private int _damage = 10;
+    [Min(1)] [SerializeField] private int _basicDamage = 10;
+    [Min(0)] [SerializeField] private int _damageSpread = 0;
 
     private Animator _animator;
     private IDamagable _target;
@@ -40,7 +41,7 @@ public class Attacker : MonoBehaviour
         while (enabled)
         {
             _animator.Play(ChooseRandomAnimation());
-            _target.ApplyDamage(_damage);
+            _target.ApplyDamage(GetRandomDamage());
             var length = _animator.GetCurrentAnimatorStateInfo(0).length;
             yield return new WaitForSeconds(length);
         }
@@ -51,5 +52,10 @@ public class Attacker : MonoBehaviour
         var animationIndex = Random.Range(0, _punchAnimations.Length);
         var animation = _punchAnimations[animationIndex];
         return animation;
+    }
+
+    private int GetRandomDamage()
+    {
+        return Random.Range(_basicDamage - _damageSpread, _basicDamage + _damageSpread + 1);
     }
 }
