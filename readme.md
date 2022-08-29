@@ -1,4 +1,6 @@
+### Небольшой учебный проект на бесплатных ассетах, клон игры Clah Royale
 
 
-https://user-images.githubusercontent.com/47274328/187180146-9d3ff9a5-f349-481f-baae-2dee9590e575.mp4
+
+https://user-images.githubusercontent.com/47274328/187189628-677789a3-12ec-4f62-9fdc-5ec0381b7cdc.mp4
 
